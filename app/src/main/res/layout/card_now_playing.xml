@@ -34,44 +34,49 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_report_image" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="4dp"
+                android:foregroundGravity="center"
+                app:layout_constraintStart_toStartOf="@+id/lbl_title_card_nowplaying"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_title_card_nowplaying"
+                app:srcCompat="@drawable/ic_baseline_star_24" />
+
             <TextView
                 android:id="@+id/lbl_title_card_nowplaying"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:maxLines="1"
                 android:text="@string/title"
                 android:textColor="@color/laser"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_poster_card_nowplaying"
                 app:layout_constraintTop_toTopOf="@+id/img_poster_card_nowplaying" />
 
             <TextView
-                android:id="@+id/lbl_overview_card_nowplaying"
-                android:layout_width="0dp"
+                android:id="@+id/card_now_playing_vote_avg"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="@string/sub_title"
+                android:layout_marginStart="2dp"
+                android:text="TextView"
                 android:textColor="#9E9E9E"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_title_card_nowplaying"
-                app:layout_constraintStart_toStartOf="@+id/lbl_title_card_nowplaying"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_title_card_nowplaying"
-                tools:ignore="TextContrastCheck" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
 
             <TextView
-                android:id="@+id/lbl_releasedate_card_nowplaying"
-                android:layout_width="0dp"
+                android:id="@+id/card_now_playing_genre"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/sub_title"
+                android:text="TextView"
                 android:textColor="#9E9E9E"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_poster_card_nowplaying"
-                app:layout_constraintEnd_toEndOf="@+id/lbl_overview_card_nowplaying"
-                app:layout_constraintStart_toStartOf="@+id/lbl_overview_card_nowplaying"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_overview_card_nowplaying" />
+                app:layout_constraintStart_toStartOf="@+id/imageView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

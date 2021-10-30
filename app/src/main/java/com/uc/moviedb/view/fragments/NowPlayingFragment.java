@@ -16,9 +16,12 @@ import android.view.WindowManager;
 import com.uc.moviedb.R;
 import com.uc.moviedb.adapter.NowPlayingAdapter;
 import com.uc.moviedb.adapter.PopularAdapter;
+import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
 import com.uc.moviedb.viewmodel.MovieViewModel;
+
+import java.util.List;
 
 public class NowPlayingFragment extends Fragment {
 
@@ -63,6 +66,16 @@ public class NowPlayingFragment extends Fragment {
         viewModel.getPopular();
         viewModel.getResultPopular().observe(getViewLifecycleOwner(), showPopular);
         return view;
+    }
+
+    public void getMovieGenre(List<Integer> genre) {
+        viewModel.getGenre(genre);
+        viewModel.getResultMovieGenre().observe(this, new Observer<List<Genre.Genres>>() {
+            @Override
+            public void onChanged(List<Genre.Genres> genres) {
+
+            }
+        });
     }
 
     private Observer<NowPlaying> showNowPlaying = new Observer<NowPlaying>() {

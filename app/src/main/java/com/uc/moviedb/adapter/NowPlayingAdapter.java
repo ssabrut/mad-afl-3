@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,10 @@ import com.uc.moviedb.R;
 import com.uc.moviedb.helper.Const;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.view.activities.MovieDetailsActivity;
+import com.uc.moviedb.view.fragments.NowPlayingFragment;
+import com.uc.moviedb.viewmodel.MovieViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.NowPlayingViewHolder> {
@@ -28,6 +32,8 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
 
     private Context context;
     private List<NowPlaying.Results> listNowPlaying;
+    NowPlayingFragment nowPlayingFragment = new NowPlayingFragment();
+    private List<Integer> genre = new ArrayList<>();
 
     public NowPlayingAdapter(Context context){
         this.context = context;
@@ -51,9 +57,10 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
     @Override
     public void onBindViewHolder(@NonNull NowPlayingAdapter.NowPlayingViewHolder holder, int position) {
         final NowPlaying.Results results = getListNowPlaying().get(position);
+        genre = results.getGenre_ids();
         holder.lbl_title.setText(results.getTitle());
-        holder.lbl_overview.setText(results.getOverview());
-        holder.lbl_release_date.setText(results.getRelease_date());
+        holder.card_now_playing_vote_avg.setText(String.valueOf(results.getVote_average()));
+        holder.card_now_playing_genre.setText(String.valueOf(genre));
         Glide.with(context).load(Const.IMG_URL + results.getPoster_path()).into(holder.img_poster);
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
@@ -79,16 +86,17 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
     }
 
     public class NowPlayingViewHolder extends RecyclerView.ViewHolder {
+
         ImageView img_poster;
-        TextView lbl_title, lbl_overview, lbl_release_date;
+        TextView lbl_title, card_now_playing_vote_avg, card_now_playing_genre;
         CardView cv;
 
         public NowPlayingViewHolder(@NonNull View itemView) {
             super(itemView);
             img_poster = itemView.findViewById(R.id.img_poster_card_nowplaying);
             lbl_title = itemView.findViewById(R.id.lbl_title_card_nowplaying);
-            lbl_overview = itemView.findViewById(R.id.lbl_overview_card_nowplaying);
-            lbl_release_date = itemView.findViewById(R.id.lbl_releasedate_card_nowplaying);
+            card_now_playing_genre = itemView.findViewById(R.id.card_now_playing_genre);
+            card_now_playing_vote_avg = itemView.findViewById(R.id.card_now_playing_vote_avg);
             cv = itemView.findViewById(R.id.cv_card_nowplaying);
         }
     }

@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Trending"
+                android:text="Popular Now"
                 android:textColor="@color/laser"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -54,7 +54,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Now Playing"
                 android:textColor="@color/laser"
-                android:textSize="28sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/popular_fragment_rv" />

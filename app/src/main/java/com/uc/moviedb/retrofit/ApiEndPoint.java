@@ -1,5 +1,6 @@
 package com.uc.moviedb.retrofit;
 
+import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
@@ -24,6 +25,11 @@ public interface ApiEndPoint {
 
     @GET("movie/popular")
     Call<Popular> getPopular(
+            @Query("api_key") String apiKey
+    );
+
+    @GET("genre/movie/list")
+    Call<Genre> getGenre(
             @Query("api_key") String apiKey
     );
 }

@@ -3,10 +3,14 @@ package com.uc.moviedb.repositories;
 import androidx.lifecycle.MutableLiveData;
 
 import com.uc.moviedb.helper.Const;
+import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
 import com.uc.moviedb.retrofit.ApiService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,6 +77,33 @@ public class MovieRepository {
 
             @Override
             public void onFailure(Call<Popular> call, Throwable t) {
+
+            }
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<List<Genre.Genres>> getMovieGenre(List<Integer> genreId) {
+        final MutableLiveData<List<Genre.Genres>> result = new MutableLiveData<>();
+
+        ApiService.endPoint().getGenre(Const.API_KEY).enqueue(new Callback<Genre>() {
+            @Override
+            public void onResponse(Call<Genre> call, Response<Genre> response) {
+                List<Genre.Genres> foo = new ArrayList<>();
+                for (int i : genreId) {
+                    for (Genre.Genres movieGenre : response.body().getGenres()) {
+                        if (movieGenre.getId() == i) {
+                            foo.add(movieGenre);
+                        }
+                    }
+                }
+
+                result.setValue(foo);
+            }
+
+            @Override
+            public void onFailure(Call<Genre> call, Throwable t) {
 
             }
         });
