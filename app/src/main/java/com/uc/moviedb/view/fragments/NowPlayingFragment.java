@@ -69,20 +69,21 @@ public class NowPlayingFragment extends Fragment {
     }
 
     public StringBuilder getMovieGenre(List<Integer> genre) {
+        System.out.println(genre);
         StringBuilder genreSet = new StringBuilder();
-        viewModel.getGenre(genre);
-        viewModel.getResultMovieGenre().observe(this, new Observer<List<Genre.Genres>>() {
-            @Override
-            public void onChanged(List<Genre.Genres> genres) {
-                for (int i = 0; i < genres.size(); i++) {
-                    if (i != genres.size() - 1) {
-                        genreSet.append(genres.get(i).getName() + ", ");
-                    } else {
-                        genreSet.append(genres.get(i).getName());
-                    }
-                }
-            }
-        });
+//        viewModel.getGenre(genre);
+//        viewModel.getResultMovieGenre().observe(this, new Observer<List<Genre.Genres>>() {
+//            @Override
+//            public void onChanged(List<Genre.Genres> genres) {
+//                for (int i = 0; i < genres.size(); i++) {
+//                    if (i != genres.size() - 1) {
+//                        genreSet.append(genres.get(i).getName() + ", ");
+//                    } else {
+//                        genreSet.append(genres.get(i).getName());
+//                    }
+//                }
+//            }
+//        });
 
         return genreSet;
     }

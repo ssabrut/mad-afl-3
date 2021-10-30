@@ -3,6 +3,7 @@ package com.uc.moviedb.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,6 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
 
     private Context context;
     private List<NowPlaying.Results> listNowPlaying;
-    NowPlayingFragment nowPlayingFragment = new NowPlayingFragment();
-    private List<Integer> genre = new ArrayList<>();
 
     public NowPlayingAdapter(Context context){
         this.context = context;
@@ -57,7 +56,6 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
     @Override
     public void onBindViewHolder(@NonNull NowPlayingAdapter.NowPlayingViewHolder holder, int position) {
         final NowPlaying.Results results = getListNowPlaying().get(position);
-        genre = results.getGenre_ids();
         holder.lbl_title.setText(results.getTitle());
         holder.card_now_playing_vote_avg.setText(String.valueOf(results.getVote_average()));
         Glide.with(context).load(Const.IMG_URL + results.getPoster_path()).into(holder.img_poster);
@@ -73,7 +71,7 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
 //                intent.putExtra("poster_path", "" + results.getPoster_path());
 //                view.getContext().startActivity(intent);
                 Bundle bundle = new Bundle();
-                bundle.putString("movie_id", "" + results.getId());
+                bundle.putParcelable("movie", results);
                 Navigation.findNavController(view).navigate(R.id.action_nowPlayingFragment_to_movieDetailsFragment, bundle);
             }
         });

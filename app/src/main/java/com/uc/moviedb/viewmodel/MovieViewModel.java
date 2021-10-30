@@ -68,7 +68,8 @@ public class MovieViewModel extends AndroidViewModel {
     private MutableLiveData<List<Genre.Genres>> resultGetMovieGenre = new MutableLiveData<>();
 
     public void getGenre(List<Integer> genreId) {
-        resultGetMovieGenre = repository.getMovieGenre(genreId);
+        System.out.println("hi");
+//        resultGetMovieGenre = repository.getMovieGenre(genreId);
     }
 
     public LiveData<List<Genre.Genres>> getResultMovieGenre() {

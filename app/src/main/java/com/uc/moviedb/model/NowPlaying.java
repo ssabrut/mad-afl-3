@@ -116,7 +116,7 @@ public class NowPlaying implements Parcelable {
         }
     }
 
-    public static class Results {
+    public static class Results implements Parcelable {
         private String poster_path;
         private boolean adult;
         private String overview;
@@ -247,6 +247,16 @@ public class NowPlaying implements Parcelable {
 
         public void setVote_average(double vote_average) {
             this.vote_average = vote_average;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+
         }
     }
 }
