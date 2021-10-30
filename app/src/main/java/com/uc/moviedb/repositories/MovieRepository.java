@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.uc.moviedb.helper.Const;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
+import com.uc.moviedb.model.Trending;
 import com.uc.moviedb.retrofit.ApiService;
 
 import retrofit2.Call;
@@ -15,16 +16,17 @@ public class MovieRepository {
 
     private static MovieRepository repository;
 
-    private MovieRepository(){}
+    private MovieRepository() {
+    }
 
-    public static MovieRepository getInstance(){
-        if(repository == null){
+    public static MovieRepository getInstance() {
+        if (repository == null) {
             repository = new MovieRepository();
         }
         return repository;
     }
 
-    public MutableLiveData<Movie> getMovieData(String movieId){
+    public MutableLiveData<Movie> getMovieData(String movieId) {
         final MutableLiveData<Movie> result = new MutableLiveData<>();
 
         ApiService.endPoint().getMovieById(movieId, Const.API_KEY).enqueue(new Callback<Movie>() {
@@ -42,7 +44,7 @@ public class MovieRepository {
         return result;
     }
 
-    public MutableLiveData<NowPlaying> getNowPlayingData(){
+    public MutableLiveData<NowPlaying> getNowPlayingData() {
         final MutableLiveData<NowPlaying> result = new MutableLiveData<>();
 
         ApiService.endPoint().getNowPlaying(Const.API_KEY).enqueue(new Callback<NowPlaying>() {
@@ -53,6 +55,24 @@ public class MovieRepository {
 
             @Override
             public void onFailure(Call<NowPlaying> call, Throwable t) {
+
+            }
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<Trending> getTrendingData() {
+        final MutableLiveData<Trending> result = new MutableLiveData<>();
+
+        ApiService.endPoint().getTrending(Const.API_KEY).enqueue(new Callback<Trending>() {
+            @Override
+            public void onResponse(Call<Trending> call, Response<Trending> response) {
+                result.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Trending> call, Throwable t) {
 
             }
         });

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.uc.moviedb.R;
 import com.uc.moviedb.adapter.NowPlayingAdapter;
@@ -52,6 +53,7 @@ public class NowPlayingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         now_playing_fragment_rv = view.findViewById(R.id.now_playing_fragment_rv);
         viewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         viewModel.getNowPlaying();
