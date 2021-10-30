@@ -7,6 +7,7 @@ import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
+import com.uc.moviedb.model.UpComing;
 import com.uc.moviedb.retrofit.ApiService;
 
 import java.util.ArrayList;
@@ -59,6 +60,24 @@ public class MovieRepository {
 
             @Override
             public void onFailure(Call<NowPlaying> call, Throwable t) {
+
+            }
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<UpComing> getUpcomingData() {
+        final MutableLiveData<UpComing> result = new MutableLiveData<>();
+
+        ApiService.endPoint().getUpComing(Const.API_KEY).enqueue(new Callback<UpComing>() {
+            @Override
+            public void onResponse(Call<UpComing> call, Response<UpComing> response) {
+                result.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UpComing> call, Throwable t) {
 
             }
         });

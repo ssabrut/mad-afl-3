@@ -60,7 +60,6 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
         genre = results.getGenre_ids();
         holder.lbl_title.setText(results.getTitle());
         holder.card_now_playing_vote_avg.setText(String.valueOf(results.getVote_average()));
-        holder.card_now_playing_genre.setText(String.valueOf(genre));
         Glide.with(context).load(Const.IMG_URL + results.getPoster_path()).into(holder.img_poster);
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +87,13 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
     public class NowPlayingViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_poster;
-        TextView lbl_title, card_now_playing_vote_avg, card_now_playing_genre;
+        TextView lbl_title, card_now_playing_vote_avg;
         CardView cv;
 
         public NowPlayingViewHolder(@NonNull View itemView) {
             super(itemView);
             img_poster = itemView.findViewById(R.id.img_poster_card_nowplaying);
             lbl_title = itemView.findViewById(R.id.lbl_title_card_nowplaying);
-            card_now_playing_genre = itemView.findViewById(R.id.card_now_playing_genre);
             card_now_playing_vote_avg = itemView.findViewById(R.id.card_now_playing_vote_avg);
             cv = itemView.findViewById(R.id.cv_card_nowplaying);
         }

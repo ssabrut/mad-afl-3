@@ -11,6 +11,7 @@ import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
+import com.uc.moviedb.model.UpComing;
 import com.uc.moviedb.repositories.MovieRepository;
 
 import java.util.List;
@@ -42,6 +43,16 @@ public class MovieViewModel extends AndroidViewModel {
 
     public LiveData<NowPlaying> getResultNowPlaying() {
         return resultGetNowPlaying;
+    }
+
+    private MutableLiveData<UpComing> resultGetUpComing = new MutableLiveData<>();
+
+    public void getUpComing() {
+        resultGetUpComing = repository.getUpcomingData();
+    }
+
+    public LiveData<UpComing> getResultUpComing() {
+        return resultGetUpComing;
     }
 
     private MutableLiveData<Popular> resultGetPopular = new MutableLiveData<>();

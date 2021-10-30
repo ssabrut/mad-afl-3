@@ -4,6 +4,7 @@ import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
+import com.uc.moviedb.model.UpComing;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,6 +21,11 @@ public interface ApiEndPoint {
 
     @GET("movie/now_playing")
     Call<NowPlaying> getNowPlaying(
+            @Query("api_key") String apiKey
+    );
+
+    @GET("movie/upcoming")
+    Call<UpComing> getUpComing(
             @Query("api_key") String apiKey
     );
 
