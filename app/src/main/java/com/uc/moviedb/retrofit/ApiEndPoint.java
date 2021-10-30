@@ -2,7 +2,7 @@ package com.uc.moviedb.retrofit;
 
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
-import com.uc.moviedb.model.Trending;
+import com.uc.moviedb.model.Popular;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,8 +22,8 @@ public interface ApiEndPoint {
             @Query("api_key") String apiKey
     );
 
-    @GET("/trending/movie/week")
-    Call<Trending> getTrending(
+    @GET("movie/popular")
+    Call<Popular> getPopular(
             @Query("api_key") String apiKey
     );
 }

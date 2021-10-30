@@ -15,8 +15,9 @@ import android.view.WindowManager;
 
 import com.uc.moviedb.R;
 import com.uc.moviedb.adapter.NowPlayingAdapter;
+import com.uc.moviedb.adapter.PopularAdapter;
 import com.uc.moviedb.model.NowPlaying;
-import com.uc.moviedb.view.activities.NowPlayingActivity;
+import com.uc.moviedb.model.Popular;
 import com.uc.moviedb.viewmodel.MovieViewModel;
 
 public class NowPlayingFragment extends Fragment {
@@ -25,7 +26,7 @@ public class NowPlayingFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
-    private RecyclerView now_playing_fragment_rv;
+    private RecyclerView now_playing_fragment_rv, popular_fragment_rv;
     private MovieViewModel viewModel;
 
     public NowPlayingFragment() {
@@ -55,9 +56,12 @@ public class NowPlayingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         now_playing_fragment_rv = view.findViewById(R.id.now_playing_fragment_rv);
+        popular_fragment_rv = view.findViewById(R.id.popular_fragment_rv);
         viewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         viewModel.getNowPlaying();
         viewModel.getResultNowPlaying().observe(getViewLifecycleOwner(), showNowPlaying);
+        viewModel.getPopular();
+        viewModel.getResultPopular().observe(getViewLifecycleOwner(), showPopular);
         return view;
     }
 
@@ -68,6 +72,16 @@ public class NowPlayingFragment extends Fragment {
             NowPlayingAdapter adapter = new NowPlayingAdapter(getActivity().getApplicationContext());
             adapter.setListNowPlaying(nowPlaying.getResults());
             now_playing_fragment_rv.setAdapter(adapter);
+        }
+    };
+
+    private Observer<Popular> showPopular = new Observer<Popular>() {
+        @Override
+        public void onChanged(Popular popular) {
+            popular_fragment_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+            PopularAdapter adapter = new PopularAdapter(getActivity().getApplicationContext());
+            adapter.setListPopular(popular.getResults());
+            popular_fragment_rv.setAdapter(adapter);
         }
     };
 }

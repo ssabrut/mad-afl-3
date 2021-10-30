@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.uc.moviedb.helper.Const;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
-import com.uc.moviedb.model.Trending;
+import com.uc.moviedb.model.Popular;
 import com.uc.moviedb.retrofit.ApiService;
 
 import retrofit2.Call;
@@ -62,17 +62,17 @@ public class MovieRepository {
         return result;
     }
 
-    public MutableLiveData<Trending> getTrendingData() {
-        final MutableLiveData<Trending> result = new MutableLiveData<>();
+    public MutableLiveData<Popular> getPopularData() {
+        final MutableLiveData<Popular> result = new MutableLiveData<>();
 
-        ApiService.endPoint().getTrending(Const.API_KEY).enqueue(new Callback<Trending>() {
+        ApiService.endPoint().getPopular(Const.API_KEY).enqueue(new Callback<Popular>() {
             @Override
-            public void onResponse(Call<Trending> call, Response<Trending> response) {
+            public void onResponse(Call<Popular> call, Response<Popular> response) {
                 result.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<Trending> call, Throwable t) {
+            public void onFailure(Call<Popular> call, Throwable t) {
 
             }
         });
