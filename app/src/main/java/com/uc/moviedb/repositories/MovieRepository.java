@@ -129,4 +129,22 @@ public class MovieRepository {
 
         return result;
     }
+
+    public MutableLiveData<List<Movie.ProductionCompanies>> getMovieProductionCompanies(List<Integer> companyId, String movieId) {
+        final MutableLiveData<List<Movie.ProductionCompanies>> result = new MutableLiveData();
+
+        ApiService.endPoint().getMovieById(movieId, Const.API_KEY).enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                System.out.println(response);
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+
+            }
+        });
+
+        return result;
+    }
 }

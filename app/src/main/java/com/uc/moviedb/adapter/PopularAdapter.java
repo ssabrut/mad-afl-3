@@ -1,6 +1,7 @@
 package com.uc.moviedb.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +51,15 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
     public void onBindViewHolder(@NonNull PopularViewHolder holder, int position) {
         final Popular.Results results = getListPopular().get(position);
         Glide.with(context).load(Const.IMG_URL + results.getPoster_path()).into(holder.popular_card_img);
+
+        holder.popular_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("popular", results);
+                Navigation.findNavController(view).navigate(R.id.action_nowPlayingFragment_to_movieDetailsFragment, bundle);
+            }
+        });
     }
 
     @Override

@@ -113,6 +113,52 @@
                 app:layout_constraintStart_toStartOf="@+id/movie_detail_fragment_year"
                 app:layout_constraintTop_toBottomOf="@id/movie_detail_fragment_year" />
 
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="Synopsis"
+                android:textColor="@color/light_gray"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_detail_fragment_genre" />
+
+            <TextView
+                android:id="@+id/movie_detail_fragment_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="24dp"
+                android:text="TextView"
+                android:textColor="@color/light_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Production Companies"
+                android:textColor="@color/light_gray"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/movie_detail_fragment_overview"
+                app:layout_constraintTop_toBottomOf="@id/movie_detail_fragment_overview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/movie_detail_fragment_companies_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/movie_detail_fragment_overview"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@id/textView6" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
