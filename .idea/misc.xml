@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/micha/AndroidStudioProjects/MovieDB/MovieDB/app/src/main/res/drawable/tab_color.xml" value="0.39692307692307693" />
         <entry key="..\:/Users/micha/AndroidStudioProjects/MovieDB/MovieDB/app/src/main/res/layout/activity_main.xml" value="0.18819655521783182" />
         <entry key="..\:/Users/micha/AndroidStudioProjects/MovieDB/MovieDB/app/src/main/res/layout/activity_main_menu.xml" value="0.25" />
         <entry key="..\:/Users/micha/AndroidStudioProjects/MovieDB/MovieDB/app/src/main/res/layout/activity_movie_details.xml" value="0.33" />

@@ -22,6 +22,7 @@ import com.uc.moviedb.model.Genre;
 import com.uc.moviedb.model.Movie;
 import com.uc.moviedb.model.NowPlaying;
 import com.uc.moviedb.model.Popular;
+import com.uc.moviedb.model.UpComing;
 import com.uc.moviedb.viewmodel.MovieViewModel;
 
 import org.w3c.dom.Text;
@@ -67,6 +68,8 @@ public class MovieDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_details, container, false);
         NowPlaying.Results movie = getArguments().getParcelable("movie");
+        Popular.Results popular = getArguments().getParcelable("popular");
+        UpComing.Results upcoming = getArguments().getParcelable("upcoming");
         initComponent(view);
 
         if (movie != null) {
@@ -104,8 +107,7 @@ public class MovieDetailsFragment extends Fragment {
                     movie_detail_fragment_companies_rv.setAdapter(adapter);
                 }
             });
-        } else {
-            Popular.Results popular = getArguments().getParcelable("popular");
+        } else if (popular != null) {
             Glide.with(getActivity().getApplicationContext()).load(Const.IMG_URL + popular.getBackdrop_path()).into(movie_detail_fragment_backdrop);
             movie_detail_fragment_title.setText(popular.getTitle());
             movie_detail_fragment_year.setText(popular.getRelease_date().substring(0, 4));
@@ -131,6 +133,41 @@ public class MovieDetailsFragment extends Fragment {
             });
 
             viewModel.getMovieById(String.valueOf(popular.getId()));
+            viewModel.getResultGetMovieById().observe(getViewLifecycleOwner(), new Observer<Movie>() {
+                @Override
+                public void onChanged(Movie movie) {
+                    movie_detail_fragment_companies_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                    ProductionCompaniesAdapter adapter = new ProductionCompaniesAdapter(getActivity().getApplicationContext());
+                    adapter.setListProductionCompanies(movie.getProduction_companies());
+                    movie_detail_fragment_companies_rv.setAdapter(adapter);
+                }
+            });
+        } else {
+            Glide.with(getActivity().getApplicationContext()).load(Const.IMG_URL + upcoming.getBackdrop_path()).into(movie_detail_fragment_backdrop);
+            movie_detail_fragment_title.setText(upcoming.getTitle());
+            movie_detail_fragment_year.setText(upcoming.getRelease_date().substring(0, 4));
+            movie_detail_fragment_vote_avg.setText(String.valueOf(upcoming.getVote_average()));
+            movie_detail_fragment_overview.setText(upcoming.getOverview());
+            genre = upcoming.getGenre_ids();
+            viewModel.getGenre(genre);
+            viewModel.getResultMovieGenre().observe(getViewLifecycleOwner(), new Observer<List<Genre.Genres>>() {
+                @Override
+                public void onChanged(List<Genre.Genres> listGenre) {
+                    StringBuilder foo = new StringBuilder();
+
+                    for (int i = 0; i < listGenre.size(); i++) {
+                        if (i != listGenre.size() - 1) {
+                            foo.append(listGenre.get(i).getName() + ", ");
+                        } else {
+                            foo.append(listGenre.get(i).getName());
+                        }
+                    }
+
+                    movie_detail_fragment_genre.setText(foo);
+                }
+            });
+
+            viewModel.getMovieById(String.valueOf(upcoming.getId()));
             viewModel.getResultGetMovieById().observe(getViewLifecycleOwner(), new Observer<Movie>() {
                 @Override
                 public void onChanged(Movie movie) {
