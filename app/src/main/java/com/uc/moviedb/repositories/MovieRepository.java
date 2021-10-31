@@ -67,18 +67,21 @@ public class MovieRepository {
         return result;
     }
 
-    public MutableLiveData<UpComing> getUpcomingData() {
-        final MutableLiveData<UpComing> result = new MutableLiveData<>();
+    private List<UpComing.Results> upComingList = new ArrayList<>();
 
-        ApiService.endPoint().getUpComing(Const.API_KEY).enqueue(new Callback<UpComing>() {
+    public MutableLiveData<List<UpComing.Results>> getUpcomingData(int page) {
+        final MutableLiveData<List<UpComing.Results>> result = new MutableLiveData<>();
+
+        ApiService.endPoint().getUpComing(page, Const.API_KEY).enqueue(new Callback<UpComing>() {
             @Override
             public void onResponse(Call<UpComing> call, Response<UpComing> response) {
-                result.setValue(response.body());
+                upComingList.addAll(response.body().getResults());
+                result.setValue(upComingList);
             }
 
             @Override
             public void onFailure(Call<UpComing> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 

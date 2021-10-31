@@ -26,6 +26,7 @@ public interface ApiEndPoint {
 
     @GET("movie/upcoming")
     Call<UpComing> getUpComing(
+            @Query("page") int page,
             @Query("api_key") String apiKey
     );
 

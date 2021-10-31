@@ -26,6 +26,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
 
     private Context context;
     private List<UpComing.Results> listUpComing;
+    public static boolean loading = false;
 
     public UpComingAdapter(Context context) {
         this.context = context;
@@ -37,6 +38,10 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
 
     public void setListUpComing(List<UpComing.Results> listUpComing) {
         this.listUpComing = listUpComing;
+    }
+
+    public void addItem(UpComing.Results results) {
+        this.listUpComing.add(results);
     }
 
     @NonNull
@@ -66,6 +71,10 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     @Override
     public int getItemCount() {
         return getListUpComing().size();
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading = loading;
     }
 
     public class UpComingViewHolder extends RecyclerView.ViewHolder {

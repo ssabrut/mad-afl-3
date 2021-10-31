@@ -14,11 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 
 import com.uc.moviedb.R;
 import com.uc.moviedb.adapter.UpComingAdapter;
 import com.uc.moviedb.model.UpComing;
 import com.uc.moviedb.viewmodel.MovieViewModel;
+
+import java.util.List;
 
 public class UpComingFragment extends Fragment {
 
@@ -28,6 +31,10 @@ public class UpComingFragment extends Fragment {
     private String mParam2;
     private RecyclerView up_coming_fragment_rv;
     private MovieViewModel viewModel;
+    LinearLayoutManager layoutManager;
+    private boolean isScrolling;
+    private int currentItem, totalItem, scrolledItem, page;
+    UpComingAdapter adapter;
 
     public UpComingFragment() {
         // Required empty public constructor
@@ -55,21 +62,54 @@ public class UpComingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_up_coming, container, false);
         up_coming_fragment_rv = view.findViewById(R.id.up_coming_fragment_rv);
+        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        adapter = new UpComingAdapter(getActivity().getApplicationContext());
+        isScrolling = false;
+        page = 1;
         viewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        viewModel.getUpComing();
-        viewModel.getResultUpComing().observe(getViewLifecycleOwner(), showUpComing);
+        viewModel.getUpComing(page);
+        viewModel.getResultUpComing().observe(getViewLifecycleOwner(), new Observer<List<UpComing.Results>>() {
+            @Override
+            public void onChanged(List<UpComing.Results> results) {
+                up_coming_fragment_rv.setLayoutManager(layoutManager);
+                adapter.setListUpComing(results);
+                up_coming_fragment_rv.setAdapter(adapter);
+            }
+        });
+
+        up_coming_fragment_rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItem = layoutManager.getChildCount();
+                totalItem = layoutManager.getItemCount();
+                scrolledItem = layoutManager.findFirstVisibleItemPosition();
+                adapter.setLoading(true);
+
+                if (!isScrolling && (currentItem + scrolledItem) >= totalItem) {
+                    isScrolling = true;
+                    page++;
+                    viewModel.getUpComing(page);
+                    viewModel.getResultUpComing().observe(getViewLifecycleOwner(), new Observer<List<UpComing.Results>>() {
+                        @Override
+                        public void onChanged(List<UpComing.Results> results) {
+                            adapter.setListUpComing(results);
+                            adapter.notifyDataSetChanged();
+                            isScrolling = true;
+                        }
+                    });
+                }
+            }
+        });
 
         return view;
     }
-
-    private Observer<UpComing> showUpComing = new Observer<UpComing>() {
-        @Override
-        public void onChanged(UpComing upComing) {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-            up_coming_fragment_rv.setLayoutManager(layoutManager);
-            UpComingAdapter adapter = new UpComingAdapter(getActivity().getApplicationContext());
-            adapter.setListUpComing(upComing.getResults());
-            up_coming_fragment_rv.setAdapter(adapter);
-        }
-    };
 }
