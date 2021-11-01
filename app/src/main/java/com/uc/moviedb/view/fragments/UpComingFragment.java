@@ -73,7 +73,14 @@ public class UpComingFragment extends Fragment {
             public void onChanged(List<UpComing.Results> results) {
                 up_coming_fragment_rv.setLayoutManager(layoutManager);
                 adapter.setListUpComing(results);
+                adapter.getListUpComing().add(null);
                 up_coming_fragment_rv.setAdapter(adapter);
+
+                for (int i = 0; i < results.size(); i++) {
+                    if (adapter.getListUpComing().get(i) == null) {
+                        adapter.getListUpComing().remove(i);
+                    }
+                }
             }
         });
 
@@ -84,6 +91,8 @@ public class UpComingFragment extends Fragment {
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     isScrolling = true;
                 }
+
+                isScrolling = false;
             }
 
             @Override
@@ -102,8 +111,15 @@ public class UpComingFragment extends Fragment {
                         @Override
                         public void onChanged(List<UpComing.Results> results) {
                             adapter.setListUpComing(results);
+                            adapter.getListUpComing().add(null);
                             adapter.notifyDataSetChanged();
                             isScrolling = true;
+
+                            for (int i = adapter.getListUpComing().size() - results.size(); i < adapter.getListUpComing().size(); i++) {
+                                if (adapter.getListUpComing().get(i) == null) {
+                                    adapter.getListUpComing().remove(i);
+                                }
+                            }
                         }
                     });
                 }
