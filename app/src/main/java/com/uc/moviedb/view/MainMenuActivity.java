@@ -1,23 +1,14 @@
 package com.uc.moviedb.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.uc.moviedb.R;
-import com.uc.moviedb.adapter.NowPlayingAdapter;
-import com.uc.moviedb.model.NowPlaying;
-import com.uc.moviedb.viewmodel.MovieViewModel;
+import com.uc.moviedb.view.fragments.MovieDetailsFragment;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -31,6 +22,12 @@ public class MainMenuActivity extends AppCompatActivity {
         main_menu_bottom_nav = findViewById(R.id.main_menu_bottom_nav);
         main_menu_nav_fragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_menu_nav_fragment);
         NavigationUI.setupWithNavController(main_menu_bottom_nav, main_menu_nav_fragment.getNavController());
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (MovieDetailsFragment.backPressed != null) {
+            MovieDetailsFragment.backPressed.onBackPressed();
+        }
     }
 }

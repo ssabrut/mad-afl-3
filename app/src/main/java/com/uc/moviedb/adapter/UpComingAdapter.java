@@ -68,7 +68,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("upcoming", results);
-                    Navigation.findNavController(view).navigate(R.id.action_upComingFragment_to_movieDetailsFragment, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_upComingFragment_to_loadingFragment, bundle);
                 }
             });
         }

@@ -79,9 +79,10 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingAdapter.No
 //                intent.putExtra("release_date", "" + results.getRelease_date());
 //                intent.putExtra("poster_path", "" + results.getPoster_path());
 //                view.getContext().startActivity(intent);
+
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("movie", results);
-                    Navigation.findNavController(view).navigate(R.id.action_nowPlayingFragment_to_movieDetailsFragment, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nowPlayingFragment_to_loadingFragment, bundle);
                 }
             });
         }

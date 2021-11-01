@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +32,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment implements BackPressed {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -38,9 +40,10 @@ public class MovieDetailsFragment extends Fragment {
     private String mParam2;
     private ImageView movie_detail_fragment_backdrop;
     private TextView movie_detail_fragment_title, movie_detail_fragment_year, movie_detail_fragment_vote_avg, movie_detail_fragment_genre, movie_detail_fragment_overview;
-    private List<Integer> genre, productionCompanies;
+    private List<Integer> genre;
     private MovieViewModel viewModel;
     private RecyclerView movie_detail_fragment_companies_rv;
+    public static BackPressed backPressed;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -192,5 +195,32 @@ public class MovieDetailsFragment extends Fragment {
         movie_detail_fragment_companies_rv = view.findViewById(R.id.movie_detail_fragment_companies_rv);
         genre = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+    }
+
+    @Override
+    public void onPause() {
+        backPressed = null;
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        backPressed = this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        NowPlaying.Results movie = getArguments().getParcelable("movie");
+        Popular.Results popular = getArguments().getParcelable("popular");
+        UpComing.Results upcoming = getArguments().getParcelable("upcoming");
+
+        if (movie != null) {
+            Navigation.findNavController(this.requireView()).navigate(R.id.action_movieDetailsFragment_to_nowPlayingFragment);
+        } else if (popular!= null) {
+            Navigation.findNavController(this.requireView()).navigate(R.id.action_movieDetailsFragment_to_nowPlayingFragment);
+        } else {
+            Navigation.findNavController(this.requireView()).navigate(R.id.action_movieDetailsFragment_to_upComingFragment);
+        }
     }
 }

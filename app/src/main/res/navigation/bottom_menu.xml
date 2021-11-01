@@ -11,8 +11,8 @@
         android:label="fragment_now_playing"
         tools:layout="@layout/fragment_now_playing" >
         <action
-            android:id="@+id/action_nowPlayingFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" />
+            android:id="@+id/action_nowPlayingFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
     </fragment>
     <fragment
         android:id="@+id/upComingFragment"
@@ -20,8 +20,8 @@
         android:label="Up Coming"
         tools:layout="@layout/fragment_up_coming" >
         <action
-            android:id="@+id/action_upComingFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" />
+            android:id="@+id/action_upComingFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -32,5 +32,20 @@
             android:name="movie_id"
             app:argType="string"
             android:defaultValue="null" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_nowPlayingFragment"
+            app:destination="@id/nowPlayingFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_upComingFragment"
+            app:destination="@id/upComingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="com.uc.moviedb.view.fragments.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/action_loadingFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
 </navigation>

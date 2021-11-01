@@ -57,7 +57,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("popular", results);
-                Navigation.findNavController(view).navigate(R.id.action_nowPlayingFragment_to_movieDetailsFragment, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_nowPlayingFragment_to_loadingFragment, bundle);
             }
         });
     }
